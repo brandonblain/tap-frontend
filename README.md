@@ -17,6 +17,64 @@ Esta es la capa de interfaz de usuario de **TAP Terminal**, una Single Page Appl
 
 ---
 
+# 🔑 Credenciales de Acceso y Entorno de Pruebas
+**Sistema:** TAP Terminal  
+**Ambiente:** Producción / QA (Cloud Deployment)
+
+Este documento centraliza los accesos, urls oficiales y usuarios de prueba requeridos por el equipo evaluador para validar el correcto funcionamiento de la plataforma.
+
+---
+
+## URLs Oficiales del Proyecto
+
+| Capa del Sistema | Plataforma | URL de Acceso Publico |
+| :--- | :--- | :--- |
+| **Frontend (Interfaz)** | Vercel Edge | `https://tap-terminal-front.vercel.app` *(O tu link definitivo)* |
+| **Backend (API REST)** | Render Cloud | `https://backend-tap-bqjk.onrender.com/api` |
+
+---
+
+## Cuentas de Usuario para Pruebas Avanzadas
+
+La base de datos en **MongoDB Atlas** cuenta con los siguientes perfiles precargados para evaluar el comportamiento del ruteo reactivo, la validación de formularios y el control de accesos basado en permisos:
+
+### A. Cuenta de Administrador Principal (Acceso Total)
+* **Usuario (Email):** `brandon.martinez@tapterminal.com`
+* **Contraseña:** `CvkttPel`
+* **Rol Asignado:** Administrador (`PRF-001`)
+* **Uso Recomendado:** Utilizar esta cuenta para validar el flujo completo de creación, edición, eliminación de usuarios/productos y la exportación de reportes binarios a Excel/PDF.
+
+### B. Cuenta de Operador / Ventas (Permisos Limitados)
+* **Usuario (Email):** `ventas@tapterminal.com`
+* **Contraseña:** `Password123`
+* **Rol Asignado:** Auxiliar de Almacén / Supervisor
+* **Uso Recomendado:** Utilizar para probar las capas de seguridad del frontend, confirmando que los elementos restringidos del menú (como la gestión avanzada de perfiles) se oculten o deshabiliten dinámicamente según los permisos del Token.
+
+### C. Auxiliar de Almacen (Permisos Limitados)
+* **Usuario (Email):** `patricia.gomez@tapterminal.com`
+* **Contraseña:** `Password123`
+* **Rol Asignado:** Auxiliar de Almacén / Supervisor
+* **Uso Recomendado:** Utilizar para probar las capas de seguridad del frontend, confirmando que los elementos restringidos del menú (como la gestión avanzada de perfiles) se oculten o deshabiliten dinámicamente según los permisos del Token, solo puede ver los productos y perfiles.
+---
+
+## Instrucciones de Consumo Externo (Postman / cURL)
+
+Si el equipo de evaluación técnica prefiere consumir los endpoints directamente de forma aislada, todas las rutas (excepto `/login` y `/forgot-password`) requieren autenticación mediante un esquema **Bearer Token**.
+
+### Paso 1: Obtener el Token (Login)
+Enviar una petición `POST` al endpoint de autenticación:
+```bash
+curl --request POST \
+  --url [https://backend-tap-bqjk.onrender.com/api/login](https://backend-tap-bqjk.onrender.com/api/login) \
+  --header 'Accept: application/json' \
+  --header 'Content-Type: application/json' \
+  --data '{
+	"username": "brandon.martinez@tapterminal.com",
+	"password": "admin123"
+}'
+
+---
+
 ## 🛠️ Stack Tecnológico
 
 * **Framework:** Angular 19 (Componentes Standalone)
