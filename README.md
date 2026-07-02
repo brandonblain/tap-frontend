@@ -1,56 +1,43 @@
-# TapTerminalFront
+# 🖥️ TAP Terminal - Frontend Core
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.27.
+[![Angular](https://img.shields.io/badge/Angular-19.0.0-DD0031?style=for-the-badge&logo=angular&logoColor=white)](https://angular.dev/)
+[![Vercel](https://img.shields.io/badge/Vercel-Deployed-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.5-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
-## Development server
+Esta es la capa de interfaz de usuario de **TAP Terminal**, una Single Page Application (SPA) modular, responsiva y altamente optimizada desarrollada con **Angular 19** utilizando componentes *Standalone* y gestión de estado reactiva moderna.
 
-To start a local development server, run:
+---
 
-```bash
-ng serve
-```
+## 🚀 Características Principales
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+* **Arquitectura Standalone:** Cero módulos complejos; ruteo directo y carga perezosa (*Lazy Loading*) por componente para minimizar el paquete inicial de transferencia.
+* **Gestión del Estado mediante Signals:** Sincronización reactiva del estado local para optimizar los ciclos de renderizado del DOM sin sobrecargar la memoria.
+* **Descarga Forzada de Datos Binarios (Blob):** Intercepción segura de streams binarios del backend para la exportación de reportes limpios a Excel (.xlsx) mediante inyección dinámica en el DOM del navegador.
+* **Formatters Dinámicos:** Uso de pipes de Angular (`DatePipe`) para homologar marcas de tiempo crudas NoSQL en formatos amigables para el usuario final (`dd/MM/yyyy HH:mm`).
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 🛠️ Stack Tecnológico
 
-```bash
-ng generate component component-name
-```
+* **Framework:** Angular 19 (Componentes Standalone)
+* **Estilos:** CSS3 Corporativo (Diseño adaptivo)
+* **Manejo de Formularios:** ReactiveFormsModule (`FormGroup` con validaciones dinámicas)
+* **Cliente HTTP:** HttpClient (RxJS Observables / Streams)
+* **Despliegue:** Vercel Global Edge Network
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
+## ⚙️ Configuración y Entorno Local
 
-## Building
+### 1. Variables de Entorno (`src/environments/`)
+Asegúrate de configurar los endpoints del backend en tus archivos de entorno:
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
+```typescript
+// src/environments/environment.prod.ts
+export const environment = {
+  production: true,
+  apiUrl: '[https://backend-tap-bqjk.onrender.com/api](https://backend-tap-bqjk.onrender.com/api)'
+};
 
 Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
 
