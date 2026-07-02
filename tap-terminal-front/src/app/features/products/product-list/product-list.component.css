@@ -1,0 +1,375 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+.products-wrapper {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: 'Inter', sans-serif;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.page-header h2 {
+  color: #111827;
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.btn {
+  padding: 0.65rem 1.25rem;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+  transition: all 0.15s ease;
+}
+
+.btn-primary {
+  background-color: #facc15;
+  color: #121212;
+  border: none;
+  padding: 0.65rem 1.25rem;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px; 
+}
+
+.btn-primary:hover {
+  background-color: #eab308;
+  transform: translateY(-1px);
+}
+
+.btn-icon {
+  font-size: 0.95rem;
+}
+
+.btn-secondary {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+.btn-secondary:hover {
+  background-color: #e5e7eb;
+}
+
+.btn-save {
+  background-color: #111827;
+  color: #facc15;
+  border: 1px solid #facc15;
+  padding: 0.65rem 1.25rem;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-save:disabled {
+  background-color: #9ca3af;
+  color: white;
+  border: none;
+  cursor: not-allowed;
+}
+
+.header-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* Botón PDF (Estilo Reporte) */
+.btn-pdf {
+  background-color: #ef4444;
+  color: white;
+}
+
+.btn-pdf:hover {
+  background-color: #dc2626;
+  transform: translateY(-1px);
+}
+
+/* Botón Excel (Estilo Finanzas) */
+.btn-excel {
+  background-color: #10b981;
+  color: white;
+}
+
+.btn-excel:hover {
+  background-color: #059669;
+  transform: translateY(-1px);
+}
+
+/* TABLA */
+.table-container {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  border: 1px solid #e5e7eb;
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.custom-table th {
+  background-color: #111827;
+  color: #f9fafb;
+  padding: 1rem;
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.custom-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #f3f4f6;
+  color: #4b5563;
+  vertical-align: middle;
+}
+
+.custom-table tbody tr:hover {
+  background-color: #fef9c3;
+}
+
+.custom-table th:first-child,
+.custom-table td:first-child {
+  padding-left: 1.5rem !important;
+}
+
+.code-column {
+  font-family: monospace;
+  font-weight: 600;
+  font-size: 0.82rem;
+  color: #374151;
+  background: #f3f4f6;
+  padding: 0.25rem 0.6rem !important;
+  border-radius: 4px;
+  display: inline-flex;
+}
+
+.name-column, .price-column {
+  font-weight: 600;
+  color: #111827;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 6px;
+}
+
+.btn-action {
+  padding: 0.4rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.btn-edit {
+  background-color: #111827;
+  color: #facc15;
+  border: 1px solid #facc15;
+}
+
+.btn-delete {
+  background-color: #fee2e2;
+  color: #ef4444;
+}
+
+/* 🔲 CAPAS DEL MODAL */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* Asegura que flote sobre el menú lateral */
+}
+
+.modal-card {
+  background: white;
+  width: 100%;
+  max-width: 500px;
+  border-radius: 8px;
+  box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+  overflow: hidden;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.modal-header {
+  background-color: #111827;
+  color: white;
+  padding: 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #facc15;
+}
+
+.btn-close-x {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.modal-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+input, select {
+  padding: 0.65rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-family: inherit;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: #facc15;
+  box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.2);
+}
+
+.modal-footer {
+  padding: 1rem 1.5rem;
+  background-color: #f9fafb;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Estilos específicos para el Modal de Borrado */
+.modal-delete-card {
+  max-width: 420px; /* Un poco más compacto */
+}
+
+.delete-header {
+  background-color: #7f1d1d !important; /* Rojo oscuro de advertencia */
+}
+
+.delete-header h3 {
+  color: #ffffff !important;
+}
+
+.text-center-delete {
+  text-align: center;
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+}
+
+.warning-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  animation: pulse 1.5s infinite;
+}
+
+.delete-text {
+  color: #1f2937;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.code-badge {
+  font-family: monospace;
+  background-color: #ffffff;
+  color: #374151;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.danger-notice {
+  font-size: 0.8rem;
+  color: #ef4444;
+  background-color: #fef2f2;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #fee2e2;
+  margin-top: 1rem;
+  font-weight: 500;
+}
+
+/* Botón de borrado definitivo */
+.btn-danger-action {
+  background-color: #ef4444;
+  color: white;
+  padding: 0.65rem 1.25rem;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+  transition: all 0.15s ease;
+}
+
+.btn-danger-action:hover:not(:disabled) {
+  background-color: #b91c1c;
+}
+
+.btn-danger-action:disabled {
+  background-color: #fca5a5;
+  cursor: not-allowed;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}

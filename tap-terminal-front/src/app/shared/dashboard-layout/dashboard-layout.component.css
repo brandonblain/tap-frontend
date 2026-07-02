@@ -1,0 +1,141 @@
+.dashboard-container {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 100vh;
+  background-color: #ffffff; /* Fondo blanco limpio para el área de trabajo */
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+/* 🧭 SIDEBAR STYLES (Negro y Amarillo) */
+.sidebar {
+  background-color: #121212; /* Negro profundo */
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  border-right: 2px solid #262626;
+}
+
+.sidebar-brand {
+  padding: 1.5rem;
+  text-align: center;
+  border-bottom: 1px solid #262626;
+}
+
+.sidebar-brand h3 {
+  margin: 0;
+  color: #facc15; /* Amarillo vibrante para la marca */
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  padding: 1.25rem;
+  background-color: #0a0a0a; /* Variación de negro más oscuro */
+  gap: 12px;
+  border-bottom: 1px solid #262626;
+}
+
+.user-avatar {
+  font-size: 1.3rem;
+  background: #262626;
+  padding: 6px 10px;
+  border-radius: 50%;
+  border: 1px solid #404040;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.user-role {
+  font-size: 0.75rem;
+  color: #facc15; /* Texto secundario en amarillo suave */
+  font-weight: 500;
+}
+
+.sidebar-menu {
+  flex: 1;
+  padding: 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.menu-item {
+  display: block;
+  padding: 0.85rem 1.5rem;
+  color: #a3a3a3; /* Blanco ceniza para los ítems inactivos */
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  border-left: 4px solid transparent;
+}
+
+.menu-item:hover {
+  background-color: #1a1a1a;
+  color: #ffffff;
+}
+
+/* Ítem activo con el poder del Amarillo */
+.menu-item.active {
+  background-color: #1a1a1a;
+  color: #facc15;
+  border-left: 4px solid #facc15; /* Indicador lateral amarillo */
+}
+
+.sidebar-footer {
+  padding: 1.25rem;
+  border-top: 1px solid #262626;
+}
+
+/* 🛑 BOTÓN CERRAR SESIÓN (Toque Rojo de Contraste) */
+.btn-logout {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #dc2626; /* Rojo sólido */
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-logout:hover {
+  background-color: #991b1b; /* Rojo más oscuro al pasar el mouse */
+}
+
+/* 🖥️ MAIN CONTENT STYLES (Blanco dominante) */
+.main-content {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.top-bar {
+  background: #ffffff;
+  padding: 1.2rem 2rem;
+  border-bottom: 2px solid #e5e5e5; /* Separación sutil gris clara */
+  font-weight: 700;
+  color: #171717; /* Texto negro para contraste en fondo blanco */
+  font-size: 1.1rem;
+}
+
+.content-wrapper {
+  padding: 2.5rem;
+  flex: 1;
+  overflow-y: auto;
+  background-color: #fafafa; /* Un blanco roto muy ligero para descansar la vista */
+}

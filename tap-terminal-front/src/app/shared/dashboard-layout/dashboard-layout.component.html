@@ -1,0 +1,55 @@
+<div class="dashboard-container">
+  
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <h3>TAP Terminal</h3>
+    </div>
+
+    <div class="user-profile">
+      <div class="user-avatar">👤</div>
+      <div class="user-info">
+        <span class="user-name">{{ auth.currentUser()?.name || 'Usuario TAP' }}</span>
+        <span class="user-role">En línea</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-menu">
+      
+      @if (auth.hasPermission('products.view')) {
+        <a routerLink="/products" routerLinkActive="active" class="menu-item">
+          📦 Productos
+        </a>
+      }
+
+      @if (auth.hasPermission('users.view')) {
+        <a routerLink="/users" routerLinkActive="active" class="menu-item">
+          👥 Usuarios
+        </a>
+      }
+
+      @if (auth.hasPermission('profiles.view')) {
+        <a routerLink="/profiles" routerLinkActive="active" class="menu-item">
+          🔑 Perfiles
+        </a>
+      }
+
+    </nav>
+
+    <div class="sidebar-footer">
+      <button (click)="onLogout()" class="btn-logout">
+        🚪 Cerrar Sesión
+      </button>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <header class="top-bar">
+      <span>Panel de Control Administrativo</span>
+    </header>
+    
+    <section class="content-wrapper">
+      <router-outlet></router-outlet>
+    </section>
+  </main>
+
+</div>

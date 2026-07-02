@@ -1,0 +1,119 @@
+<div class="products-wrapper">
+  <div class="page-header">
+    <h2>Gestión de Perfiles</h2>
+    <div class="header-actions">
+      <button class="btn btn-pdf" (click)="downloadPdf()">📄 Exportar PDF</button>
+      <button class="btn btn-excel" (click)="downloadExcel()">📊 Exportar Excel</button>
+      @if (auth.hasPermission('profiles.create')) {
+        <button class="btn btn-primary" (click)="openCreateModal()">➕ Agregar Nuevo Perfil</button>
+      }
+    </div>
+  </div>
+
+  @if (isLoading()) {
+    <div class="loading">Cargando perfiles...</div>
+  } @else {
+    <div class="table-container">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Nombre del Perfil</th>
+            <th>Secciones Habilitadas</th>
+            @if (auth.hasPermission('profiles.edit') || auth.hasPermission('profiles.delete')) {
+              <th>Acciones</th>
+            }
+          </tr>
+        </thead>
+        <tbody>
+          @for (profile of profiles(); track profile.id) {
+            <tr>
+              <td><span class="code-column">{{ profile.code || 'Autogenerado' }}</span></td>
+              <td class="name-column"><strong>{{ profile.name }}</strong></td>
+              <td>
+                <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+                  @for (sec of profile.sections; track sec) {
+                    <span style="background: #e5e7eb; color: #1f2937; padding: 2px 6px; border-radius: 4px; font-size: 11px; font-family: monospace;">{{ sec }}</span>
+                  } @empty {
+                    <span style="color: #9ca3af; font-style: italic;">Ninguna sección activa</span>
+                  }
+                </div>
+              </td>
+              @if (auth.hasPermission('profiles.edit') || auth.hasPermission('profiles.delete')) {
+                <td>
+                  <div class="action-buttons">
+                    <button class="btn-action btn-edit" (click)="openEditModal(profile)">✏️</button>
+                    <button class="btn-action btn-delete" (click)="openDeleteModal(profile)">🗑️</button>
+                  </div>
+                </td>
+              }
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+
+  @if (isModalOpen()) {
+    <div class="modal-overlay">
+      <div class="modal-card" style="max-width: 600px;">
+        <div class="modal-header">
+          <h3>{{ isEditing() ? '✏️ Editar Perfil' : '➕ Crear Nuevo Perfil' }}</h3>
+          <button class="btn-close-x" (click)="closeModal()">&times;</button>
+        </div>
+        
+        <form [formGroup]="profileForm" (ngSubmit)="onSave()">
+          <div class="modal-body">
+            <div class="form-group" @if(isEditing()){}>
+              <label>Código Interno</label>
+              <input type="text" formControlName="code" />
+            </div>
+            <div class="form-group">
+              <label>Nombre del Perfil</label>
+              <input type="text" formControlName="name" placeholder="Ej: Operador Logístico, Auditor" />
+            </div>
+
+            <div class="form-group">
+              <label style="margin-bottom: 0.75rem; display: block;">Asignación de Secciones (Permisos del Sistema):</label>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; background: #f9fafb; padding: 1rem; border-radius: 6px; border: 1px solid #e5e7eb; max-height: 250px; overflow-y: auto;">
+                @for (sec of availableSections; track sec.value) {
+                  <label style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #374151; cursor: pointer;">
+                    <input type="checkbox" [checked]="isSectionChecked(sec.value)" (change)="onCheckboxChange($event, sec.value)" style="width: 16px; height: 16px; accent-color: #facc15;" />
+                    {{ sec.label }}
+                  </label>
+                }
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancelar</button>
+            <button type="submit" class="btn btn-save" [disabled]="profileForm.invalid || isSaving()">
+              {{ isSaving() ? 'Guardando...' : 'Confirmar Guardado' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+
+  @if (isDeleteModalOpen()) {
+    <div class="modal-overlay">
+      <div class="modal-card modal-delete-card">
+        <div class="modal-header delete-header">
+          <h3>⚠️ Eliminar Perfil</h3>
+          <button class="btn-close-x" (click)="closeDeleteModal()">&times;</button>
+        </div>
+        <div class="modal-body text-center-delete">
+          <div class="warning-icon"></div>
+          <p>¿Seguro de eliminar el perfil <strong>{{ profileToDelete()?.name }}</strong>?</p>
+          <p class="danger-notice">Esto afectará el acceso de los usuarios vinculados a este perfil.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeDeleteModal()">Cancelar</button>
+          <button type="button" class="btn btn-danger-action" (click)="confirmDelete()" [disabled]="isSaving()">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  }
+</div>

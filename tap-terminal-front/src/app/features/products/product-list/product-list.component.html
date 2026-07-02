@@ -1,0 +1,141 @@
+<div class="products-wrapper">
+  <div class="page-header">
+    <h2>Catálogo de Productos</h2>
+    <div class="header-actions">
+      <button class="btn btn-pdf" (click)="downloadPdf()">
+        📄 Exportar PDF
+      </button>
+      <button class="btn btn-excel" (click)="downloadExcel()">
+        📊 Exportar Excel
+      </button>
+      @if (auth.hasPermission('products.create')) {
+        <button class="btn btn-primary" (click)="openCreateModal()">
+          <span class="btn-icon">➕</span> Agregar Nuevo Producto
+        </button>
+      }
+    </div>
+  </div>
+
+  @if (isLoading()) {
+    <div class="loading">Cargando datos desde Render...</div>
+  } @else if (errorMessage()) {
+    <div class="alert alert-danger">{{ errorMessage() }}</div>
+  } @else {
+    <div class="table-container">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Nombre</th>
+            <th>Marca</th> <th>Precio</th>
+            @if (auth.hasPermission('products.edit') || auth.hasPermission('products.delete')) {
+              <th>Acciones</th>
+            }
+          </tr>
+        </thead>
+        <tbody>
+          @for (product of products(); track product.id) {
+            <tr>
+              <td><span class="code-column">{{ product.code }}</span></td>
+              <td class="name-column">{{ product.name }}</td>
+              <td>{{ product.brand || 'N/A' }}</td>
+              <td class="price-column">${{ product.price | number:'1.2-2' }}</td>
+              
+              @if (auth.hasPermission('products.edit') || auth.hasPermission('products.delete')) {
+                <td>
+                  <div class="action-buttons">
+                    <button class="btn-action btn-edit" (click)="openEditModal(product)">✏️</button>
+                    <button class="btn-action btn-delete" (click)="openDeleteModal(product)">🗑️</button>
+                  </div>
+                </td>
+              }
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="5" class="text-center">No hay productos en la base de datos.</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+
+  @if (isModalOpen()) {
+    <div class="modal-overlay">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3>{{ isEditing() ? '✏️ Editar Producto' : '➕ Registrar Producto' }}</h3>
+          <button class="btn-close-x" (click)="closeModal()">&times;</button>
+        </div>
+        
+        <form [formGroup]="productForm" (ngSubmit)="onSave()">
+  <div class="modal-body">
+    
+    <div class="form-group">
+      <label>Código del Producto</label>
+      <input type="text" formControlName="code" placeholder="XXXXXXXXX" [readonly]="!isEditing()" style="background-color: #f3f4f6; cursor: not-allowed;" />
+    </div>
+
+    <div class="form-group">
+      <label>Nombre Comercial</label>
+      <input type="text" formControlName="name" placeholder="Ej: Contenedor Marítimo 20FT" />
+    </div>
+
+    <div class="form-group">
+      <label>Marca</label>
+      <input type="text" formControlName="brand" placeholder="Ej: Maersk Line" />
+    </div>
+
+    <div class="form-group">
+      <label>Precio (MXN - Máx 3 dígitos)</label>
+      <input type="number" formControlName="price" step="0.01" max="999.99" placeholder="0.00" />
+      @if (productForm.get('price')?.errors?.['max']) {
+        <small style="color: #ef4444; font-weight: 500; font-size: 0.8rem; margin-top: 0.25rem;">
+          ⚠️ El precio no puede exceder los 3 dígitos enteros ($999.99).
+        </small>
+      }
+    </div>
+
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancelar</button>
+    <button type="submit" class="btn btn-save" [disabled]="productForm.invalid || isSaving()">
+      {{ isSaving() ? 'Guardando...' : 'Confirmar Guardado' }}
+    </button>
+  </div>
+</form>
+      </div>
+    </div>
+  }
+
+  @if (isDeleteModalOpen()) {
+    <div class="modal-overlay">
+      <div class="modal-card modal-delete-card">
+        <div class="modal-header delete-header">
+          <h3>⚠️ Confirmar Eliminación</h3>
+          <button class="btn-close-x" (click)="closeDeleteModal()">&times;</button>
+        </div>
+        
+        <div class="modal-body text-center-delete">
+          <div class="warning-icon"></div>
+          <p class="delete-text">
+            ¿Estás seguro de que deseas eliminar el producto <br>
+            <strong>{{ productToDelete()?.name }}</strong> con código 
+            <span class="code-badge">{{ productToDelete()?.code }}</span>?
+          </p>
+          <p class="danger-notice">Esta acción es irreversible y borrará el registro.</p>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeDeleteModal()" [disabled]="isSaving()">
+            Cancelar
+          </button>
+          <button type="button" class="btn btn-danger-action" (click)="confirmDelete()" [disabled]="isSaving()">
+            {{ isSaving() ? 'Eliminando...' : 'Sí, Eliminar Registro' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+</div>
