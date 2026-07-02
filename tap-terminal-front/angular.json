@@ -58,13 +58,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
-            "production": {
-              "buildTarget": "tap-terminal-front:build:production"
+        "production": {
+          "optimization": {
+            "scripts": true,
+            "styles": {
+              "minify": true,
+              "inlineCritical": false
             },
-            "development": {
-              "buildTarget": "tap-terminal-front:build:development"
-            }
+            "fonts": false
           },
+          "outputHashing": "all"
+        }
+      },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
